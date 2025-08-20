@@ -5,40 +5,36 @@ class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         if not nums:
             return 0
-
         offset = 0
 
+
         while nums:
-            mid_index = len(nums) // 2
-
-            if nums[mid_index] == target:
-                return mid_index + offset
-
-            if nums[mid_index] > target:
-                nums = nums[:mid_index]
+            mid = len(nums) // 2
+            if nums[mid] == target:
+                return mid + offset
+            elif nums[mid] > target:
+                nums = nums[:mid]
             else:
-                nums = nums[1+mid_index:]
-                offset +=  mid_index + 1
+                nums = nums[mid + 1:]
+                offset += mid+1
         return offset
 
     def searchInsert2(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums) - 1
 
         while left <= right:
-            mid = (left + right) // 2
+            mid = (right + left) // 2 + left
             if nums[mid] == target:
                 return mid
-            elif nums[mid] < target:
-                left = mid + 1
-            else:
+            elif nums[mid] > target:
                 right = mid - 1
-
-        # At this point, left is the insertion position
+            else:
+                left = mid + 1
         return left
 
 
 nums = [1, 3, 5, 6, 9, 12, 14, 16, 17]
 target = 7
 
-print(Solution().searchInsert(nums, target))
-assert(Solution().searchInsert(nums, target) == 4)
+print(Solution().searchInsert2(nums, target))
+assert(Solution().searchInsert2(nums, target) == 4)
