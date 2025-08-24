@@ -11,7 +11,6 @@ class Solution:
             a_pointer -= 1
             b_pointer -= 1
 
-
             suma = carry + a_val + b_val
             out.append(str(suma % 2))
             carry = suma // 2
@@ -19,6 +18,7 @@ class Solution:
             out.append(str(carry))
         out.reverse()
         return "".join(out)
+
 
 a = "1010"
 b = "1011"

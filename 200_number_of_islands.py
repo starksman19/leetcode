@@ -3,6 +3,7 @@ from typing import List
 
 # mam mapę visited -> i robię rozpszetszenieniae się
 
+
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         islands = 0
@@ -23,17 +24,17 @@ class Solution:
             visited[i2][j2] = 1
             isl.append(1)
 
-            dfs(grd, i2+1, j2, isl)
-            dfs(grd, i2-1, j2, isl)
-            dfs(grd, i2, j2+1, isl)
-            dfs(grd, i2, j2-1, isl)
+            dfs(grd, i2 + 1, j2, isl)
+            dfs(grd, i2 - 1, j2, isl)
+            dfs(grd, i2, j2 + 1, isl)
+            dfs(grd, i2, j2 - 1, isl)
 
         for i in range(len(grid)):
             for j in range(len(grid[i])):
                 island = []
                 if visited[i][j] == 1:
                     continue
-                elif grid[i][j] == '0':
+                elif grid[i][j] == "0":
                     visited[i][j] = 1
                 else:
                     dfs(grid, i, j, island)

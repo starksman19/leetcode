@@ -9,7 +9,7 @@ def rob(nums: List[int]) -> int:
     dp = [0] * len(nums)
     for index in range(0, len(nums)):
         # Might be done better cause you access index -2 and index -1 in the first two iterations
-        dp[index] = (max(dp[index - 2] + nums[index], dp[index - 1]))
+        dp[index] = max(dp[index - 2] + nums[index], dp[index - 1])
     return max(dp)
 
 

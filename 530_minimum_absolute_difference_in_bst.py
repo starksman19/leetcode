@@ -8,6 +8,7 @@ class TreeNode:
         self.left = left
         self.right = right
 
+
 class Solution:
     def getMinimumDifference_bad(self, root: Optional[TreeNode]) -> int:
         values = []
@@ -16,16 +17,19 @@ class Solution:
         while queue:
             node = queue.popleft()
             values.append(node.val)
-            if node.left: queue.append(node.left)
-            if node.right: queue.append(node.right)
-        values.sort() # LAZY and not optimal
-        min_diff = float('inf')
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        values.sort()  # LAZY and not optimal
+        min_diff = float("inf")
         for i in range(1, len(values)):
             min_diff = min(min_diff, values[i] - values[i - 1])
 
     def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
-        min_value = float('inf')
+        min_value = float("inf")
         prev = None
+
         def dfs(node):
             nonlocal min_value
             nonlocal prev

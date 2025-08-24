@@ -14,7 +14,6 @@ class Solution:
         que.append((startGene, 0))  # gen + liczba mutacji
 
         while que:
-
             gene, mutations = que.popleft()
             if gene == endGene:
                 return mutations
@@ -23,18 +22,16 @@ class Solution:
                 for i in range(len(gene)):
                     if possible_mutation == gene[i]:
                         continue
-                    temp = gene[:i] + possible_mutation + gene[i + 1:]
+                    temp = gene[:i] + possible_mutation + gene[i + 1 :]
                     if temp not in checked_paths and temp in bank_set:
                         checked_paths.add(temp)
                         que.append((temp, mutations + 1))
         return -1
 
 
-
-
 startGene = "AACCGGTT"
 endGene = "AAACGGTA"
-bank = ["AACCGGTA","AACCGCTA","AAACGGTA"]
+bank = ["AACCGGTA", "AACCGCTA", "AAACGGTA"]
 
 print(Solution().minMutation(startGene, endGene, bank))
 assert Solution().minMutation(startGene, endGene, bank) == 2

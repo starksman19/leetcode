@@ -1,5 +1,5 @@
-
 from typing import List, Optional
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -18,7 +18,7 @@ class Solution:
             node = TreeNode(n[m])
 
             node.left = divide_and_conquer(n[:m])
-            node.right = divide_and_conquer(n[m+1:])
+            node.right = divide_and_conquer(n[m + 1 :])
             return node
 
         mid = len(nums) // 2
@@ -27,8 +27,9 @@ class Solution:
             return root
 
         root.left = divide_and_conquer(nums[:mid])
-        root.right = divide_and_conquer(nums[mid+1:])
+        root.right = divide_and_conquer(nums[mid + 1 :])
         return root
 
-nums = [-10,-3,0,5,9]
+
+nums = [-10, -3, 0, 5, 9]
 print(Solution().sortedArrayToBST(nums))

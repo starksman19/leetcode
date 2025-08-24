@@ -7,7 +7,7 @@ class Solution:
         dp = [0 for _ in range(n)]
         dp[-1] = 1
         dp[-2] = 2
-        for i in range(n-3, -1, -1):
+        for i in range(n - 3, -1, -1):
             dp[i] = dp[i + 1] + dp[i + 2]
 
         return dp[0]
@@ -20,10 +20,9 @@ class Solution:
             two = temp
         return one
 
+
 print(Solution().climbStairs(10))
 # assert Solution().climbStairs(2) == 2
 #
 # print(Solution().climbStairs(3))
 # assert Solution().climbStairs(3) == 3
-
-

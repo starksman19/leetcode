@@ -34,6 +34,7 @@ class Trie:
             node = node.children[ch]
         return True
 
+
 # Your Trie object will be instantiated and called as such:
 # obj = Trie()
 # obj.insert(word)
