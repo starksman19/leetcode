@@ -41,7 +41,7 @@ def dfs_warmup(start, graph: dict):
     return order
 
 
-dfs_warmup(1, {1: [2, 3], 2: [4], 3: [], 4: []})
+assert dfs_warmup(1, {1:[2,3],2:[4],3:[],4:[]}) == [1,2,4,3]
 
 
 # ---------------------------
