@@ -229,10 +229,27 @@ def quickselect_warmup(arr: List[int], k: int):
     Oczekiwanie:
         - średnio O(n), losowy pivot
     """
-    pass
+    k = len(arr) - k
+    def partition(left: int, right: int):
+        pivot, pointer = arr[right], left
+        for i in range(left, right):
+            if arr[i] <= pivot:
+                arr[i], arr[pointer] = arr[pointer], arr[i]
+                pointer += 1
+        arr[right], arr[pointer] = arr[pointer], arr[right]
+        if pointer == k:
+            return arr[k]
+        elif pointer < k:
+            return partition(pointer + 1, right)
+        else:
+            return partition(left, pointer - 1)
+
+    return partition(0, len(arr) - 1)
 
 
-assert quickselect_warmup([3, 2, 1, 5, 4], 2) == 2
+nums = [3, 2, 1, 5, 6, 4]
+k = 2
+assert quickselect_warmup(nums, k) == 5
 
 
 # ---------------------------
