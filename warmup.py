@@ -24,6 +24,8 @@ def bfs_warmup(start, graph: dict):
             queue.append(node)
         out.append(it)
     return out
+
+
 assert bfs_warmup(1, {1: [2, 3], 2: [4], 3: [], 4: []}) == [1, 2, 3, 4]
 
 
@@ -41,6 +43,7 @@ def dfs_warmup(start, graph: dict):
     """
     out = [start]
     visited = set()
+
     def dfs(n):
         nonlocal graph
         if graph.get(n, None) is None:
@@ -50,13 +53,12 @@ def dfs_warmup(start, graph: dict):
                 visited.add(node)
                 out.append(node)
                 dfs(node)
+
     dfs(start)
     return out
 
 
-
-
-assert dfs_warmup(1, {1:[2,3],2:[4],3:[],4:[]}) == [1,2,4,3]
+assert dfs_warmup(1, {1: [2, 3], 2: [4], 3: [], 4: []}) == [1, 2, 4, 3]
 
 
 # ---------------------------
@@ -101,12 +103,12 @@ def sliding_window_warmup(arr: List[int], k: int):
     Oczekiwanie:
         - przesuwamy okno po tablicy
     """
-    left, right = 0, k-1
+    left, right = 0, k - 1
     out = 0
     while right <= len(arr) - 1:
-        out = max(out, sum(arr[left:right+1]))
-        left +=1
-        right +=1
+        out = max(out, sum(arr[left : right + 1]))
+        left += 1
+        right += 1
     return out
 
 
@@ -166,7 +168,7 @@ def stack_warmup(s: str):
         elif not que:
             return False
         elif que[-1] == char_map[char]:
-                que.pop()
+            que.pop()
 
     return not que
 
@@ -193,11 +195,26 @@ def inorder_traversal_warmup(root: Optional[TreeNode]):
     Oczekiwanie:
         - przechodzimy całe drzewo rekurencyjnie
     """
-    pass
+    out = []
+
+    def dfs(node: TreeNode):
+        if node is None:
+            return
+
+        dfs(node.left)
+        out.append(node.val)
+        dfs(node.right)
+
+    dfs(root)
+    return out
 
 
-root = TreeNode(1, TreeNode(2), TreeNode(3))
-assert inorder_traversal_warmup(root) == [2, 1, 3]
+root = TreeNode(
+    1,
+    TreeNode(2, TreeNode(4), None),
+    TreeNode(3, TreeNode(5, TreeNode(7), None), TreeNode(6)),
+)
+assert inorder_traversal_warmup(root) == [4, 2, 1, 7, 5, 3, 6]
 
 
 # ---------------------------
