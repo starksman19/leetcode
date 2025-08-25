@@ -101,7 +101,13 @@ def sliding_window_warmup(arr: List[int], k: int):
     Oczekiwanie:
         - przesuwamy okno po tablicy
     """
-    pass
+    left, right = 0, k-1
+    out = 0
+    while right <= len(arr) - 1:
+        out = max(out, sum(arr[left:right+1]))
+        left +=1
+        right +=1
+    return out
 
 
 assert sliding_window_warmup([2, 1, 5, 1, 3, 2], 3) == 9
