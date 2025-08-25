@@ -126,7 +126,16 @@ def two_pointers_warmup(arr: List[int], target: int):
     Oczekiwanie:
         - dwa wskaźniki przesuwające się ku sobie
     """
-    pass
+    left, right = 0, len(arr) - 1
+    while left < right:
+        s = arr[left] + arr[right]
+        if s == target:
+            return True
+        elif s > target:
+            right -= 1
+        elif s < target:
+            left += 1
+    return False
 
 
 assert two_pointers_warmup([1, 2, 3, 4, 6], 6) == True
@@ -145,7 +154,21 @@ def stack_warmup(s: str):
     Oczekiwanie:
         - stos do śledzenia otwarć nawiasów
     """
-    pass
+    char_map = {
+        "}": "{",
+        "]": "[",
+        ")": "(",
+    }
+    que = []
+    for char in s:
+        if char in char_map.values():
+            que.append(char)
+        elif not que:
+            return False
+        elif que[-1] == char_map[char]:
+                que.pop()
+
+    return not que
 
 
 assert stack_warmup("()[]{}") == True
