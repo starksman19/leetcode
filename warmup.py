@@ -312,7 +312,14 @@ def knapsack_warmup(weights: List[int], values: List[int], W: int):
     Oczekiwanie:
         - klasyczny plecak 0/1 z DP
     """
-    pass
+    dp = [[0] * (W+1) for _ in range((len(values) + 1))]
+    for i in range(1, len(values)+1):
+        for j in range(1, W+1):
+            if weights[i-1] > j:
+                dp[i][j] = dp[i-1][j]
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i-1][j-weights[i-1]]+values[i-1])
+    return max([max(i) for i in dp])
 
 
 assert knapsack_warmup([1, 3, 4, 5], [1, 4, 5, 7], 7) == 9
