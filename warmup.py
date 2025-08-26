@@ -264,7 +264,16 @@ def divide_and_conquer_sum(arr: List[int], l: int, r: int):
     Oczekiwanie:
         - dzielimy problem na pół i sumujemy wyniki
     """
-    pass
+    if not arr:
+        return 0
+    if l == r:
+        return arr[l]
+
+    mid = (l + r) //2
+    left = divide_and_conquer_sum(arr, l, mid)
+    right = divide_and_conquer_sum(arr, mid + 1, r)
+    return left + right
+
 
 
 assert divide_and_conquer_sum([1, 2, 3, 4], 0, 3) == 10
@@ -278,12 +287,15 @@ def lis_warmup(nums: List[int]):
         - nums: lista liczb
     Wyjście:
         - długość najdłuższej rosnącej podsekwencji
-    Oczekiwanie:
+
         - używamy DP, O(n^2) lub O(n log n)
     """
-    pass
-
-
+    dp = [1] * len(nums)
+    for i in range(len(nums)):
+        for j in range(i):
+            if nums[i] > nums[j]:
+                dp[i] = max(dp[i], dp[j] + 1)
+    return max(dp)
 assert lis_warmup([10, 9, 2, 5, 3, 7, 101, 18]) == 4
 
 
