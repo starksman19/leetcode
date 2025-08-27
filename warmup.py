@@ -321,7 +321,6 @@ def knapsack_warmup(weights: List[int], values: List[int], W: int):
                 dp[i][j] = max(dp[i-1][j], dp[i-1][j-weights[i-1]]+values[i-1])
     return max([max(i) for i in dp])
 
-
 assert knapsack_warmup([1, 3, 4, 5], [1, 4, 5, 7], 7) == 9
 
 
@@ -338,7 +337,17 @@ def coin_change_warmup(coins: List[int], amount: int):
     Oczekiwanie:
         - klasyczny DP minimalizacji liczby monet
     """
-    pass
+    if amount == 0:
+        return 0
+
+    dp = [float("inf") for _ in range(amount + 1)]
+    dp[0] = 0
+    for val in range(1, len(dp)):
+        for coin in coins:
+            if val-coin >= 0:
+                dp[val] = min(dp[val], dp[val - coin] + 1)
+
+    return dp[-1] if dp[-1] != float("inf") else -1
 
 
 assert coin_change_warmup([1, 2, 5], 11) == 3
