@@ -230,6 +230,7 @@ def quickselect_warmup(arr: List[int], k: int):
         - średnio O(n), losowy pivot
     """
     k = len(arr) - k
+
     def partition(left: int, right: int):
         pivot, pointer = arr[right], left
         for i in range(left, right):
@@ -269,11 +270,10 @@ def divide_and_conquer_sum(arr: List[int], l: int, r: int):
     if l == r:
         return arr[l]
 
-    mid = (l + r) //2
+    mid = (l + r) // 2
     left = divide_and_conquer_sum(arr, l, mid)
     right = divide_and_conquer_sum(arr, mid + 1, r)
     return left + right
-
 
 
 assert divide_and_conquer_sum([1, 2, 3, 4], 0, 3) == 10
@@ -298,6 +298,8 @@ def lis_warmup(nums: List[int]):
             if nums[i] > nums[j]:
                 dp[i] = max(dp[i], dp[j] + 1)
     return max(dp)
+
+
 assert lis_warmup([10, 9, 2, 5, 3, 7, 101, 18]) == 4
 
 
@@ -314,14 +316,17 @@ def knapsack_warmup(weights: List[int], values: List[int], W: int):
     Oczekiwanie:
         - klasyczny plecak 0/1 z DP
     """
-    dp = [[0] * (W+1) for _ in range((len(values) + 1))]
-    for i in range(1, len(values)+1):
-        for j in range(1, W+1):
-            if weights[i-1] > j:
-                dp[i][j] = dp[i-1][j]
+    dp = [[0] * (W + 1) for _ in range((len(values) + 1))]
+    for i in range(1, len(values) + 1):
+        for j in range(1, W + 1):
+            if weights[i - 1] > j:
+                dp[i][j] = dp[i - 1][j]
             else:
-                dp[i][j] = max(dp[i-1][j], dp[i-1][j-weights[i-1]]+values[i-1])
+                dp[i][j] = max(
+                    dp[i - 1][j], dp[i - 1][j - weights[i - 1]] + values[i - 1]
+                )
     return max([max(i) for i in dp])
+
 
 assert knapsack_warmup([1, 3, 4, 5], [1, 4, 5, 7], 7) == 9
 
@@ -346,7 +351,7 @@ def coin_change_warmup(coins: List[int], amount: int):
     dp[0] = 0
     for val in range(1, len(dp)):
         for coin in coins:
-            if val-coin >= 0:
+            if val - coin >= 0:
                 dp[val] = min(dp[val], dp[val - coin] + 1)
 
     return dp[-1] if dp[-1] != float("inf") else -1

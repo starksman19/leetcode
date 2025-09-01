@@ -11,6 +11,7 @@ class Solution:
                 return True
         return False
 
+
 s = "abc"
 t = "ahbgdc"
 
