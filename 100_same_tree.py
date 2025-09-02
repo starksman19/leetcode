@@ -24,4 +24,5 @@ class Solution:
                 que.append(node.right)
                 ret.append(node.val)
             return ret
+
         return bfs(p) == bfs(q)
