@@ -352,7 +352,9 @@ def coin_change_warmup(coins: List[int], amount: int):
     for value in range(1, len(dp)):
         for coin in coins:
             if value - coin >= 0:
-                dp[value] = min(dp[value], dp[value-coin] + 1)
+                dp[value] = min(dp[value], dp[value - coin] + 1)
 
     return dp[-1] if dp[-1] != float("inf") else -1
+
+
 assert coin_change_warmup([1, 2, 5], 11) == 3
