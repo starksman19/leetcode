@@ -8,6 +8,7 @@ from typing import List
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         out = []
+
         def backtrack(curr: list, start: int):
             if len(curr) == k:
                 out.append(curr[:])
@@ -21,6 +22,7 @@ class Solution:
         v = []
         backtrack(v, 1)
         return out
+
 
 n1 = 4
 k1 = 2
