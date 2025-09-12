@@ -1,10 +1,29 @@
 from typing import List
 
+# Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        pass
+        res = []
+        used = [False] * len(nums)
 
+        def backtrack(path):
+            if len(path) == len(nums):
+                res.append(path[:])   # kopiujemy aktualną permutację
+                return
+            for i in range(len(nums)):
+                if not used[i]:
+                    used[i] = True
+                    path.append(nums[i])
+
+                    backtrack(path)
+
+                    # cofnięcie ruchu
+                    path.pop()
+                    used[i] = False
+
+        backtrack([])
+        return res
 
 
 nums1 = [1,2,3]
