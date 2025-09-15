@@ -4,27 +4,23 @@ from typing import List
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        res = []
+        ret = []
         used = [False] * len(nums)
 
         def backtrack(path):
             if len(path) == len(nums):
-                res.append(path[:])   # kopiujemy aktualną permutację
+                ret.append(path[:])
                 return
             for i in range(len(nums)):
                 if not used[i]:
                     used[i] = True
                     path.append(nums[i])
-
                     backtrack(path)
-
-                    # cofnięcie ruchu
                     path.pop()
                     used[i] = False
 
         backtrack([])
-        return res
-
+        return ret
 
 nums1 = [1,2,3]
 out1 = [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
