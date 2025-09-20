@@ -5,8 +5,18 @@
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        i, j = 0, 0
+        ret, l, r = 0, 0, 0
 
+        letters = set()
+        while r < len(s):
+            if s[r] not in letters:
+                letters.add(s[r])
+                r +=1
+                ret = max(ret, r - l)
+            else:
+                letters.remove(s[l])
+                l +=1
+        return ret
 
 s1 = "abcabcbb"
 s2 = "bbbbb"
