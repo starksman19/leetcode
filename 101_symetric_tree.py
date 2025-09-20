@@ -9,6 +9,8 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
+
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         def bfs(nod, left_pass=True) -> List[int]:
@@ -27,9 +29,8 @@ class Solution:
                 else:
                     ret.append(None)
             return ret
+
         return bfs(root.right) == bfs(root.left, False)
-
-
 
 
 root = TreeNode(1)

@@ -10,31 +10,29 @@ from typing import List
 #
 # Your solution must use only constant extra space.
 
+
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        left, right = 0, len(numbers) -1
+        left, right = 0, len(numbers) - 1
         while right > left:
             sum = numbers[left] + numbers[right]
             if sum == target:
                 break
             elif sum > target:
-                right -=1
+                right -= 1
             else:
                 left += 1
-        return [left+1, right+1]
+        return [left + 1, right + 1]
 
 
-
-
-numbers1 = [2,7,11,15]
+numbers1 = [2, 7, 11, 15]
 target1 = 9
 
-numbers2 = [2,3,4]
+numbers2 = [2, 3, 4]
 target2 = 6
 
-print(Solution().twoSum(numbers1,target1))
-assert Solution().twoSum(numbers1,target1) == [1,2]
+print(Solution().twoSum(numbers1, target1))
+assert Solution().twoSum(numbers1, target1) == [1, 2]
 
-print(Solution().twoSum(numbers1,target1))
-assert Solution().twoSum(numbers1,target1) == [1,3]
-
+print(Solution().twoSum(numbers1, target1))
+assert Solution().twoSum(numbers1, target1) == [1, 3]

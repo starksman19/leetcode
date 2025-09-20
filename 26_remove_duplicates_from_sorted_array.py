@@ -22,8 +22,9 @@ class Solution:
 
         return i + 1
 
-nums1 = [1,1,2]
-nums2 = [0,0,1,1,1,2,2,3,3,4,0,1,1]
+
+nums1 = [1, 1, 2]
+nums2 = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4, 0, 1, 1]
 
 
 # print(Solution().removeDuplicates(nums1))
@@ -31,4 +32,3 @@ nums2 = [0,0,1,1,1,2,2,3,3,4,0,1,1]
 
 print(Solution().removeDuplicates(nums2))
 assert Solution().removeDuplicates(nums2) == 5
-

@@ -11,6 +11,7 @@ from typing import List
 # The remaining elements of nums are not important as well as the size of nums.
 # Return k.
 
+
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         k = len(nums)
@@ -24,6 +25,7 @@ class Solution:
                 avaliable_slots.append(i)
         return k
 
+
 nums1 = [3, 2, 2, 3]
 val1 = 3
 nums2 = [0, 1, 2, 2, 3, 0, 4, 2]
@@ -34,4 +36,3 @@ assert Solution().removeElement(nums1, val1) == 2
 
 print(Solution().removeElement(nums2, val2))
 assert Solution().removeElement(nums2, val2) == 5
-
