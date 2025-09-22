@@ -11,12 +11,13 @@ class Solution:
         while r < len(s):
             if s[r] not in letters:
                 letters.add(s[r])
-                r +=1
+                r += 1
                 ret = max(ret, r - l)
             else:
                 letters.remove(s[l])
-                l +=1
+                l += 1
         return ret
+
 
 s1 = "abcabcbb"
 s2 = "bbbbb"
