@@ -6,6 +6,7 @@
 # Each unique word in s maps to exactly one letter in pattern.
 # No two letters map to the same word, and no two words map to the same letter.
 
+
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
         pattern_map = {}
@@ -24,15 +25,14 @@ class Solution:
         return True
 
 
-
-pattern1  = "abba"
+pattern1 = "abba"
 t1 = "dog cat cat dog"
 
 pattern2 = "abba"
 t2 = "dog cat cat fish"
 
-print(Solution().wordPattern(pattern1 , t1))
-assert Solution().wordPattern(pattern1 , t1) == True
+print(Solution().wordPattern(pattern1, t1))
+assert Solution().wordPattern(pattern1, t1) == True
 
 print(Solution().wordPattern(pattern2, t2))
 assert Solution().wordPattern(pattern2, t2) == False

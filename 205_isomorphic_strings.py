@@ -22,6 +22,7 @@ class Solution:
                     return False
         return True
 
+
 s1 = "egg"
 t1 = "add"
 

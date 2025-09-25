@@ -8,14 +8,15 @@ from typing import List
 # 1 <= coins[i] <= 231 - 1
 # 0 <= amount <= 104
 
+
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        mem = [float("inf") for _ in range(amount+1)]
+        mem = [float("inf") for _ in range(amount + 1)]
         mem[0] = 0
-        for i in range(1, amount+1):
+        for i in range(1, amount + 1):
             for coin in coins:
-                if i-coin >= 0:
-                    mem[i] = min(mem[i], mem[i-coin] + 1)
+                if i - coin >= 0:
+                    mem[i] = min(mem[i], mem[i - coin] + 1)
         return int(mem[-1]) if mem[-1] != float("inf") else -1
 
 
