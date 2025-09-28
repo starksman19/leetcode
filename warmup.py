@@ -375,7 +375,20 @@ def comination_sum(candidates: List[int], target: int) -> List[List[int]]:
     # The test cases are generated such that the number of unique combinations
     # that sum up to target is less than 150 combinations for the given input.
     """
-    pass
+    ret = []
+    def backtrack(start, curr_values, s):
+        if s == target:
+            ret.append(curr_values[:])
+            return
+        elif s > target:
+            return
+        for i in range(start, len(candidates)):
+            curr_values.append(candidates[i])
+            backtrack(start, curr_values, s+candidates[i])
+            start += 1
+            curr_values.pop()
+    backtrack(0, [], 0)
+    return ret
 
 candidates1 = [2, 3, 5]
 target1 = 8
