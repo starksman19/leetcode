@@ -363,6 +363,7 @@ assert coin_change_warmup([1, 2, 5], 11) == 3
 # ---------------------------
 # 13. Backtracking - combinationSum
 
+
 def comination_sum(candidates: List[int], target: int) -> List[List[int]]:
     """
     # Given an array of distinct integers candidates and a target integer target,
@@ -376,6 +377,7 @@ def comination_sum(candidates: List[int], target: int) -> List[List[int]]:
     # that sum up to target is less than 150 combinations for the given input.
     """
     ret = []
+
     def backtrack(start, curr_values, s):
         if s == target:
             ret.append(curr_values[:])
@@ -384,11 +386,13 @@ def comination_sum(candidates: List[int], target: int) -> List[List[int]]:
             return
         for i in range(start, len(candidates)):
             curr_values.append(candidates[i])
-            backtrack(start, curr_values, s+candidates[i])
+            backtrack(start, curr_values, s + candidates[i])
             start += 1
             curr_values.pop()
+
     backtrack(0, [], 0)
     return ret
+
 
 candidates1 = [2, 3, 5]
 target1 = 8
