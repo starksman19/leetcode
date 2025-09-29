@@ -9,15 +9,11 @@ class ListNode:
 
 
 class Solution:
-    def addTwoNumbers(
-        self, l1: Optional[ListNode], l2: Optional[ListNode]
-    ) -> Optional[ListNode]:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         def traverse(node: ListNode, multiplayer, suma):
             if not node:
                 return suma
-            return traverse(
-                node.next, multiplayer * 10, suma + (node.val * multiplayer)
-            )
+            return traverse(node.next, multiplayer * 10, suma + (node.val * multiplayer))
 
         num1 = traverse(l1, 1, 0)
         num2 = traverse(l2, 1, 0)

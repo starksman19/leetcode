@@ -11,10 +11,7 @@ from typing import List
 
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        mem = [
-            [float("inf") for _ in range(len(triangle[row]))]
-            for row in range(len(triangle))
-        ]
+        mem = [[float("inf") for _ in range(len(triangle[row]))] for row in range(len(triangle))]
         mem[0][0] = triangle[0][0]
         for i in range(1, len(triangle)):
             for j in range(len(triangle[i])):

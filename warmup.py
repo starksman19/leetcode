@@ -1,6 +1,4 @@
 from collections import deque
-import heapq
-import random
 from typing import List, Optional
 
 
@@ -322,9 +320,7 @@ def knapsack_warmup(weights: List[int], values: List[int], W: int):
             if weights[i - 1] > j:
                 dp[i][j] = dp[i - 1][j]
             else:
-                dp[i][j] = max(
-                    dp[i - 1][j], dp[i - 1][j - weights[i - 1]] + values[i - 1]
-                )
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weights[i - 1]] + values[i - 1])
     return max([max(i) for i in dp])
 
 

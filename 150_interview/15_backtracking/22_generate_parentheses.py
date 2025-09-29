@@ -6,8 +6,9 @@ from typing import List
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         ret = []
+
         def backtrack(path: List[str], open_count: int, close_count: int):
-            if len(path) == 2*n:
+            if len(path) == 2 * n:
                 ret.append("".join(path[:]))
                 return
             if open_count < n:
@@ -18,8 +19,10 @@ class Solution:
                 path.append(")")
                 backtrack(path, open_count, close_count + 1)
                 path.pop()
+
         backtrack([], 0, 0)
         return ret
+
 
 n1 = 3
 n2 = 1
