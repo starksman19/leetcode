@@ -3,15 +3,27 @@
 
 class Solution:
     def reverseBits(self, n: int) -> int:
-        pass
+        n = n & 0xFFFFFFFF
+
+        bits = ""
+        for i in range(32):
+            bits = str(n % 2) + bits
+            n //= 2
+
+        reversed_bits = bits[::-1]
+        result = 0
+        for bit in reversed_bits:
+            result = result * 2 + int(bit)
+
+        return result
 
 
 n1 = 43261596
 o1 = 964176192
 
 
-n2 = 43261596
-o2 = 964176192
+n2 = 2147483644
+o2 = 1073741822
 
 
 print(Solution().reverseBits(n1))
