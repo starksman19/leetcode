@@ -17,6 +17,14 @@ class Solution:
 
         return result
 
+    def reverseBits2(self, n: int) -> int:
+        result = 0
+        for i in range(32):
+            result <<= 1  # shift left
+            result |= n & 1  # add LSB of n
+            n >>= 1  # shift n right
+        return result
+
 
 n1 = 43261596
 o1 = 964176192
