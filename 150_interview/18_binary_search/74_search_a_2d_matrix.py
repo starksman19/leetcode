@@ -12,31 +12,32 @@ from typing import List
 
 class Solution:
     def searchMatrix_2_searches(self, matrix: List[List[int]], target: int) -> bool:
-        m, n = len(matrix), len(matrix[0])
+        rows, cols = len(matrix), len(matrix[0])
 
-        start, end = 0, m - 1
-        row = -1
+        start, end = 0, rows - 1
+        row = -10
         while start <= end:
-            mid = (end + start) // 2
-            if matrix[mid][0] <= target <= matrix[mid][n - 1]:
+            mid = (start + end) // 2
+            if matrix[mid][0] <= target and matrix[mid][-1] >= target:
                 row = matrix[mid]
                 break
-            elif matrix[mid][0] > target:
+            elif matrix[mid][0] >= target:
                 end = mid - 1
-            else:
+            elif matrix[mid][0] <= target:
                 start = mid + 1
 
-        if row == -1:
+        if row == -10:
             return False
 
-        start, end = 0, len(row) - 1
+        start, end = 0, cols - 1
+
         while start <= end:
-            mid = (end + start) // 2
+            mid = (start + end) // 2
             if row[mid] == target:
                 return True
-            elif row[mid] > target:
+            elif row[mid] >= target:
                 end = mid - 1
-            else:
+            elif row[mid] <= target:
                 start = mid + 1
         return False
 
@@ -65,8 +66,15 @@ matrix2 = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]]
 target2 = 13
 
 
-print(Solution().searchMatrix(matrix1, target1))
-assert Solution().searchMatrix(matrix1, target1) == True
+# print(Solution().searchMatrix(matrix1, target1))
+# assert Solution().searchMatrix(matrix1, target1) == True
+#
+# print(Solution().searchMatrix(matrix2, target2))
+# assert Solution().searchMatrix(matrix2, target2) == False
 
-print(Solution().searchMatrix(matrix2, target2))
-assert Solution().searchMatrix(matrix2, target2) == False
+
+print(Solution().searchMatrix_2_searches(matrix1, target1))
+assert Solution().searchMatrix_2_searches(matrix1, target1) == True
+
+print(Solution().searchMatrix_2_searches(matrix2, target2))
+assert Solution().searchMatrix_2_searches(matrix2, target2) == False
