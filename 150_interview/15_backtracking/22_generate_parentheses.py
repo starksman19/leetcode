@@ -27,7 +27,8 @@ class Solution:
 n3 = 2123123
 n45 = 142231
 n1 = 3
-n2 = 1
+n2 = 15
+n49 = 3
 
 
 print(Solution().generateParenthesis(n1))
