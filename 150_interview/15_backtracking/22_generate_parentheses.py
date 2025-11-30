@@ -24,7 +24,8 @@ class Solution:
         return ret
 
 
-n3 = 2123
+n3 = 2123123
+n45 = 142231
 n1 = 3
 n2 = 1
 
