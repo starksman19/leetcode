@@ -14,16 +14,17 @@ def bfs_warmup(start, graph: dict):
     Oczekiwanie:
         - przechodzimy graf poziomami
     """
-    queue = deque([start])
-    out = []
-    while queue:
-        it = queue.popleft()
-        for node in graph[it]:
-            queue.append(node)
-        out.append(it)
-    return out
+    que = deque([start])
+    ret = []
+    while que:
+        val = que.popleft()
+        for neigh in graph[val]:
+            que.append(neigh)
+        ret.append(val)
+    return ret
 
 
+ret_1 = bfs_warmup(1, {1: [2, 3], 2: [4], 3: [], 4: []})
 assert bfs_warmup(1, {1: [2, 3], 2: [4], 3: [], 4: []}) == [1, 2, 3, 4]
 
 
@@ -59,6 +60,34 @@ def dfs_warmup(start, graph: dict):
 assert dfs_warmup(1, {1: [2, 3], 2: [4], 3: [], 4: []}) == [1, 2, 4, 3]
 
 
+def dfs_warmup2(start, graph: dict):
+    """
+    Wejście:
+        - start: wierzchołek startowy
+        - graph: dict -> lista sąsiadów {node: [neighbors]}
+    Wyjście:
+        - lista odwiedzonych wierzchołków w kolejności DFS
+    Oczekiwanie:
+        - przechodzimy graf w głąb
+    """
+    ret = []
+
+    def dfs(node: int):
+        if not graph[node]:
+            ret.append(node)
+            return
+        else:
+            ret.append(node)
+            for neigh in graph[node]:
+                dfs(neigh)
+
+    dfs(start)
+    return ret
+
+
+assert dfs_warmup(1, {1: [2, 3], 2: [4], 3: [], 4: []}) == [1, 2, 4, 3]
+
+
 # ---------------------------
 # 3. Binary Search
 def binary_search_warmup(arr: List[int], target: int):
@@ -77,11 +106,10 @@ def binary_search_warmup(arr: List[int], target: int):
         mid = (left + right) // 2
         if arr[mid] == target:
             return mid
-        elif arr[mid] < target:
-            left = mid + 1
-        else:
+        elif arr[mid] > target:
             right = mid - 1
-
+        else:
+            left = mid + 1
     return -1
 
 
