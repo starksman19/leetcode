@@ -129,13 +129,13 @@ def sliding_window_warmup(arr: List[int], k: int):
     Oczekiwanie:
         - przesuwamy okno po tablicy
     """
-    left, right = 0, k - 1
-    out = 0
-    while right <= len(arr) - 1:
-        out = max(out, sum(arr[left : right + 1]))
-        left += 1
-        right += 1
-    return out
+    ret = 0
+    start, end = 0, k
+    for _ in range(len(arr) - k):
+        ret = max(ret, sum(arr[start:end]))
+        start += 1
+        end += 1
+    return ret
 
 
 assert sliding_window_warmup([2, 1, 5, 1, 3, 2], 3) == 9
@@ -156,12 +156,12 @@ def two_pointers_warmup(arr: List[int], target: int):
     """
     left, right = 0, len(arr) - 1
     while left < right:
-        s = arr[left] + arr[right]
-        if s == target:
+        val = arr[left] + arr[right]
+        if val == target:
             return True
-        elif s > target:
+        elif val > target:
             right -= 1
-        elif s < target:
+        else:
             left += 1
     return False
 
@@ -182,25 +182,29 @@ def stack_warmup(s: str):
     Oczekiwanie:
         - stos do śledzenia otwarć nawiasów
     """
-    char_map = {
+    map_paranth = {
         "}": "{",
         "]": "[",
         ")": "(",
     }
-    que = []
-    for char in s:
-        if char in char_map.values():
-            que.append(char)
-        elif not que:
-            return False
-        elif que[-1] == char_map[char]:
-            que.pop()
+    stack = []
+    for parant in s:
+        if parant in map_paranth.values():
+            stack.append(parant)
+        else:
+            if len(stack) == 0 or stack.pop() != map_paranth[parant]:
+                return False
+    if len(stack) != 0:
+        return False
 
-    return not que
+    return True
 
 
 assert stack_warmup("()[]{}") == True
 assert stack_warmup("([)]") == False
+assert stack_warmup("([)") == False
+assert stack_warmup("([)]]") == False
+assert stack_warmup("([)][") == False
 
 
 # ---------------------------
