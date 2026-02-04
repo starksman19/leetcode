@@ -225,18 +225,17 @@ def inorder_traversal_warmup(root: Optional[TreeNode]):
     Oczekiwanie:
         - przechodzimy całe drzewo rekurencyjnie
     """
-    out = []
+    ret = []
 
-    def dfs(node: TreeNode):
-        if node is None:
+    def inorder(node: TreeNode):
+        if not node:
             return
+        inorder(node.left)
+        ret.append(node.val)
+        inorder(node.right)
 
-        dfs(node.left)
-        out.append(node.val)
-        dfs(node.right)
-
-    dfs(root)
-    return out
+    inorder(root)
+    return ret
 
 
 root = TreeNode(
@@ -264,16 +263,16 @@ def quickselect_warmup(arr: List[int], k: int):
     def partition(left: int, right: int):
         pivot, pointer = arr[right], left
         for i in range(left, right):
-            if arr[i] <= pivot:
+            if arr[i] < pivot:
                 arr[i], arr[pointer] = arr[pointer], arr[i]
                 pointer += 1
         arr[right], arr[pointer] = arr[pointer], arr[right]
         if pointer == k:
             return arr[k]
-        elif pointer < k:
-            return partition(pointer + 1, right)
-        else:
+        elif pointer > k:
             return partition(left, pointer - 1)
+        else:
+            return partition(pointer + 1, right)
 
     return partition(0, len(arr) - 1)
 
@@ -320,9 +319,7 @@ def lis_warmup(nums: List[int]):
 
         - używamy DP, O(n^2) lub O(n log n)
     """
-    if not nums:
-        return 0
-    dp = [1] * len(nums)
+    dp = [1 for _ in range(len(nums))]
     for i in range(len(nums)):
         for j in range(i):
             if nums[i] > nums[j]:
