@@ -343,14 +343,15 @@ def knapsack_warmup(weights: List[int], values: List[int], W: int):
     Oczekiwanie:
         - klasyczny plecak 0/1 z DP
     """
-    dp = [[0] * (W + 1) for _ in range((len(values) + 1))]
-    for i in range(1, len(values) + 1):
-        for j in range(1, W + 1):
+    # ile wejdzie przy założeniu takiej wagi -> 0,1,2,3,4,5.. W w
+    dp = [[0 for _ in range(W + 1)] for _ in range(len(weights) + 1)]
+    for i in range(1, len(dp)):
+        for j in range(1, len(dp[0])):
             if weights[i - 1] > j:
                 dp[i][j] = dp[i - 1][j]
             else:
-                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weights[i - 1]] + values[i - 1])
-    return max([max(i) for i in dp])
+                dp[i][j] = max(dp[i - 1][j], values[i - 1] + dp[i - 1][j - weights[i - 1]])
+    return max([max(l) for l in dp])
 
 
 assert knapsack_warmup([1, 3, 4, 5], [1, 4, 5, 7], 7) == 9
@@ -369,17 +370,6 @@ def coin_change_warmup(coins: List[int], amount: int):
     Oczekiwanie:
         - klasyczny DP minimalizacji liczby monet
     """
-    if amount == 0:
-        return 0
-
-    dp = [float("inf") for _ in range(amount + 1)]
-    dp[0] = 0
-    for value in range(1, len(dp)):
-        for coin in coins:
-            if value - coin >= 0:
-                dp[value] = min(dp[value], dp[value - coin] + 1)
-
-    return dp[-1] if dp[-1] != float("inf") else -1
 
 
 assert coin_change_warmup([1, 2, 5], 11) == 3
@@ -401,22 +391,6 @@ def comination_sum(candidates: List[int], target: int) -> List[List[int]]:
     # The test cases are generated such that the number of unique combinations
     # that sum up to target is less than 150 combinations for the given input.
     """
-    ret = []
-
-    def backtrack(start, curr_values, s):
-        if s == target:
-            ret.append(curr_values[:])
-            return
-        elif s > target:
-            return
-        for i in range(start, len(candidates)):
-            curr_values.append(candidates[i])
-            backtrack(start, curr_values, s + candidates[i])
-            start += 1
-            curr_values.pop()
-
-    backtrack(0, [], 0)
-    return ret
 
 
 candidates1 = [2, 3, 5]
