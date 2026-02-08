@@ -370,6 +370,12 @@ def coin_change_warmup(coins: List[int], amount: int):
     Oczekiwanie:
         - klasyczny DP minimalizacji liczby monet
     """
+    dp = [float("inf") for _ in range(amount + 1)]
+    dp[0] = 0
+    for coin in coins:
+        for x in range(coin, len(dp)):
+            dp[x] = min(dp[x], dp[x - coin] + 1)
+    return dp[-1] if dp[-1] != float("inf") else -1
 
 
 assert coin_change_warmup([1, 2, 5], 11) == 3
@@ -379,7 +385,7 @@ assert coin_change_warmup([1, 2, 5], 11) == 3
 # 13. Backtracking - combinationSum
 
 
-def comination_sum(candidates: List[int], target: int) -> List[List[int]]:
+def combination_sum(candidates: List[int], target: int) -> List[List[int]]:
     """
     # Given an array of distinct integers candidates and a target integer target,
     # return a list of all unique combinations of candidates where the chosen numbers sum to target.
@@ -387,19 +393,32 @@ def comination_sum(candidates: List[int], target: int) -> List[List[int]]:
     #
     # The same number may be chosen from candidates an unlimited number of times.
     # Two combinations are unique if the frequency of at least one of the chosen numbers is different.
-    #
-    # The test cases are generated such that the number of unique combinations
-    # that sum up to target is less than 150 combinations for the given input.
     """
+    ret = []
+
+    def backtrack(curr_value: int, curr_values: list[int], start: int):
+        if curr_value == target:
+            ret.append(curr_values[:])
+            return
+        elif curr_value > target:
+            return
+        else:
+            for i in range(start, len(candidates)):
+                curr_values.append(candidates[i])
+                backtrack(curr_value + candidates[i], curr_values, i)
+                curr_values.pop()
+
+    backtrack(0, [], 0)
+    return ret
 
 
 candidates1 = [2, 3, 5]
 target1 = 8
 candidates2 = [2]
 target2 = 1
-assert comination_sum(candidates1, target1) == [
+assert combination_sum(candidates1, target1) == [
     [2, 2, 2, 2],
     [2, 3, 3],
     [3, 5],
 ]
-assert comination_sum(candidates2, target2) == []
+assert combination_sum(candidates2, target2) == []
