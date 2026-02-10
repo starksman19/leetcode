@@ -262,15 +262,16 @@ def divide_and_conquer_sum(arr: List[int], l: int, r: int):
     Oczekiwanie:
         - dzielimy problem na pół i sumujemy wyniki
     """
-    if not arr:
-        return 0
-    if l == r:
-        return arr[l]
 
-    mid = (l + r) // 2
-    left = divide_and_conquer_sum(arr, l, mid)
-    right = divide_and_conquer_sum(arr, mid + 1, r)
-    return left + right
+    def div(array, left, right):
+        if left == right:
+            return array[right]
+        mid = (left + right) // 2
+        left = div(array, left, mid)
+        right = div(array, mid + 1, right)
+        return left + right
+
+    return div(arr, l, r)
 
 
 assert divide_and_conquer_sum([1, 2, 3, 4], 0, 3) == 10
@@ -288,7 +289,7 @@ def lis_warmup(nums: List[int]):
         - używamy DP, O(n^2) lub O(n log n)
     """
     dp = [1 for _ in range(len(nums))]
-    for i in range(len(nums)):
+    for i in range(len(dp)):
         for j in range(i):
             if nums[i] > nums[j]:
                 dp[i] = max(dp[i], dp[j] + 1)
@@ -312,14 +313,6 @@ def knapsack_warmup(weights: List[int], values: List[int], W: int):
         - klasyczny plecak 0/1 z DP
     """
     # ile wejdzie przy założeniu takiej wagi -> 0,1,2,3,4,5.. W w
-    dp = [[0 for _ in range(W + 1)] for _ in range(len(weights) + 1)]
-    for i in range(1, len(dp)):
-        for j in range(1, len(dp[0])):
-            if weights[i - 1] > j:
-                dp[i][j] = dp[i - 1][j]
-            else:
-                dp[i][j] = max(dp[i - 1][j], values[i - 1] + dp[i - 1][j - weights[i - 1]])
-    return max([max(l) for l in dp])
 
 
 assert knapsack_warmup([1, 3, 4, 5], [1, 4, 5, 7], 7) == 9
