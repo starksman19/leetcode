@@ -222,19 +222,19 @@ def quickselect_warmup(arr: List[int], k: int):
         - arr: lista liczb
         - k: pozycja (1-indexed) najmniejszego elementu
     Wyjście:
-        - wartość k-tego najmniejszego elementu
+        - wartość k-tego największego elementu
     Oczekiwanie:
         - średnio O(n), losowy pivot
     """
     k = len(arr) - k
 
-    def partition(left: int, right: int):
-        pivot, pointer = arr[right], left
+    def partition(left, right):
+        pointer, pivot = left, arr[right]
         for i in range(left, right):
             if arr[i] < pivot:
                 arr[i], arr[pointer] = arr[pointer], arr[i]
                 pointer += 1
-        arr[right], arr[pointer] = arr[pointer], arr[right]
+        arr[pointer], arr[right] = arr[right], arr[pointer]
         if pointer == k:
             return arr[k]
         elif pointer > k:
