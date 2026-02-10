@@ -17,10 +17,10 @@ def bfs_warmup(start, graph: dict):
     que = deque([start])
     ret = []
     while que:
-        val = que.popleft()
-        for neigh in graph[val]:
-            que.append(neigh)
-        ret.append(val)
+        curr = que.popleft()
+        ret.append(curr)
+        for val in graph[curr]:
+            que.append(val)
     return ret
 
 
@@ -40,46 +40,15 @@ def dfs_warmup(start, graph: dict):
     Oczekiwanie:
         - przechodzimy graf w głąb
     """
-    out = [start]
+    ret = []
     visited = set()
 
-    def dfs(n):
-        nonlocal graph
-        if graph.get(n, None) is None:
-            return
-        for node in graph[n]:
-            if node not in visited:
-                visited.add(node)
-                out.append(node)
-                dfs(node)
-
-    dfs(start)
-    return out
-
-
-assert dfs_warmup(1, {1: [2, 3], 2: [4], 3: [], 4: []}) == [1, 2, 4, 3]
-
-
-def dfs_warmup2(start, graph: dict):
-    """
-    Wejście:
-        - start: wierzchołek startowy
-        - graph: dict -> lista sąsiadów {node: [neighbors]}
-    Wyjście:
-        - lista odwiedzonych wierzchołków w kolejności DFS
-    Oczekiwanie:
-        - przechodzimy graf w głąb
-    """
-    ret = []
-
-    def dfs(node: int):
-        if not graph[node]:
-            ret.append(node)
-            return
-        else:
-            ret.append(node)
-            for neigh in graph[node]:
-                dfs(neigh)
+    def dfs(next_val: int):
+        if next_val not in visited:
+            visited.add(next_val)
+            ret.append(next_val)
+            for val in graph[next_val]:
+                dfs(val)
 
     dfs(start)
     return ret
@@ -129,12 +98,12 @@ def sliding_window_warmup(arr: List[int], k: int):
     Oczekiwanie:
         - przesuwamy okno po tablicy
     """
+    left, right = 0, k
     ret = 0
-    start, end = 0, k
-    for _ in range(len(arr) - k):
-        ret = max(ret, sum(arr[start:end]))
-        start += 1
-        end += 1
+    while right < len(arr):
+        ret = max(ret, sum(arr[left:right]))
+        left += 1
+        right += 1
     return ret
 
 
@@ -156,10 +125,10 @@ def two_pointers_warmup(arr: List[int], target: int):
     """
     left, right = 0, len(arr) - 1
     while left < right:
-        val = arr[left] + arr[right]
-        if val == target:
+        suma = arr[left] + arr[right]
+        if suma == target:
             return True
-        elif val > target:
+        elif suma > target:
             right -= 1
         else:
             left += 1
@@ -182,21 +151,20 @@ def stack_warmup(s: str):
     Oczekiwanie:
         - stos do śledzenia otwarć nawiasów
     """
-    map_paranth = {
-        "}": "{",
-        "]": "[",
-        ")": "(",
-    }
-    stack = []
+    map_p = {"}": "{", "]": "[", ")": "("}
+    ret = []
     for parant in s:
-        if parant in map_paranth.values():
-            stack.append(parant)
+        if parant in map_p.values():
+            ret.append(parant)
         else:
-            if len(stack) == 0 or stack.pop() != map_paranth[parant]:
+            if len(ret) == 0:
                 return False
-    if len(stack) != 0:
+            else:
+                val = ret.pop()
+                if map_p[parant] != val:
+                    return False
+    if ret:
         return False
-
     return True
 
 
@@ -227,14 +195,14 @@ def inorder_traversal_warmup(root: Optional[TreeNode]):
     """
     ret = []
 
-    def inorder(node: TreeNode):
+    def dfs(node: TreeNode):
         if not node:
             return
-        inorder(node.left)
+        dfs(node.left)
         ret.append(node.val)
-        inorder(node.right)
+        dfs(node.right)
 
-    inorder(root)
+    dfs(root)
     return ret
 
 
