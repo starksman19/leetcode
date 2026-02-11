@@ -342,12 +342,13 @@ def coin_change_warmup(coins: List[int], amount: int):
     dp = [float("inf") for _ in range(amount + 1)]
     dp[0] = 0
     for coin in coins:
-        for x in range(coin, len(dp)):
-            dp[x] = min(dp[x], dp[x - coin] + 1)
+        for i in range(coin, len(dp)):
+            dp[i] = min(dp[i], dp[i - coin] + 1)
     return dp[-1] if dp[-1] != float("inf") else -1
 
 
 assert coin_change_warmup([1, 2, 5], 11) == 3
+assert coin_change_warmup([2, 6, 8, 10], 17) == -1
 
 
 # ---------------------------
@@ -365,19 +366,21 @@ def combination_sum(candidates: List[int], target: int) -> List[List[int]]:
     """
     ret = []
 
-    def backtrack(curr_value: int, curr_values: list[int], start: int):
-        if curr_value == target:
-            ret.append(curr_values[:])
+    def backtrack(curr_arr: List[int], curr_sum: int, start: int):
+        if curr_sum == target:
+            ret.append(curr_arr[:])
             return
-        elif curr_value > target:
+        elif curr_sum > target:
             return
         else:
             for i in range(start, len(candidates)):
-                curr_values.append(candidates[i])
-                backtrack(curr_value + candidates[i], curr_values, i)
-                curr_values.pop()
+                curr_arr.append(candidates[i])
+                curr_sum += candidates[i]
+                backtrack(curr_arr, curr_sum, i)
+                curr_arr.pop()
+                curr_sum = curr_sum - candidates[i]
 
-    backtrack(0, [], 0)
+    backtrack([], 0, 0)
     return ret
 
 
