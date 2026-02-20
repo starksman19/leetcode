@@ -53,12 +53,12 @@ class Solution:
         return dfs(root)
 
 
-# root = TreeNode(2)
-# root.left = TreeNode(1)
-# root.right = TreeNode(3)
-#
-# print(Solution().isValidBST(root))
-# assert Solution().isValidBST(root) == True
+root = TreeNode(2)
+root.left = TreeNode(1)
+root.right = TreeNode(3)
+
+print(Solution().isValidBST(root))
+assert Solution().isValidBST(root) == True
 
 root = TreeNode(5)
 root.left = TreeNode(1)
