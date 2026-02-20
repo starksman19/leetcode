@@ -28,7 +28,27 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: Optional[Node]) -> Optional[Node]:
-        pass
+        if not head:
+            return
+        node_map = {}
+
+        node = head
+        while node:
+            new_node = Node(node.val)
+            node_map[node] = new_node
+            node = node.next
+
+        node = head
+        new_node = node_map[head]
+        while node:
+            if node.random:
+                new_node.random = node_map[node.random]
+            if node.next is not None:
+                new_node.next = node_map[node.next]
+            new_node = new_node.next
+            node = node.next
+
+        return node_map[head]
 
 
 # AI generated examples
