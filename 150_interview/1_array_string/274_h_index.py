@@ -7,18 +7,27 @@ from typing import List
 
 
 class Solution:
-    def hIndex(self, citations: List[int]) -> int:
+    def hIndex_wrong(self, citations: List[int]) -> int:
         pass
 
+    def hIndex(self, citations: List[int]) -> int:
+        h_index = 0
+        citations.sort(reverse=True)
+        for i in range(len(citations)):
+            if citations[i] >= i + 1:
+                h_index = i + 1
+            else:
+                break
+        return h_index
+
+
+# TODO dodaj rozwiązanie z bucketami next time (liczysz ilości występowań każdej z wartości aż do n)
 
 citations = [3, 0, 6, 1, 5]
-
 print(Solution().hIndex(citations))
-assert Solution().hIndex(citations) == [24, 12, 8, 6]
+assert Solution().hIndex(citations) == 3
 
 
 citations = [1, 3, 1]
-
-
 print(Solution().hIndex(citations))
-assert Solution().hIndex(citations) == [0, 0, 9, 0, 0]
+assert Solution().hIndex(citations) == 1
