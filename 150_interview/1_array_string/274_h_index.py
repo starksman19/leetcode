@@ -7,10 +7,23 @@ from typing import List
 
 
 class Solution:
-    def hIndex_wrong(self, citations: List[int]) -> int:
-        pass
-
     def hIndex(self, citations: List[int]) -> int:
+        n = len(citations)
+        stacks = [0] * (n + 1)
+
+        for cit in citations:
+            if cit < n:
+                stacks[cit] += 1
+            else:
+                stacks[n] += 1
+        sum_up_to_this_point = 0
+        for i in range(n, -1, -1):
+            sum_up_to_this_point += stacks[i]
+            if sum_up_to_this_point >= i:
+                return i
+        return 0
+
+    def hIndex_auto_sort(self, citations: List[int]) -> int:
         h_index = 0
         citations.sort(reverse=True)
         for i in range(len(citations)):
@@ -20,8 +33,6 @@ class Solution:
                 break
         return h_index
 
-
-# TODO dodaj rozwiązanie z bucketami next time (liczysz ilości występowań każdej z wartości aż do n)
 
 citations = [3, 0, 6, 1, 5]
 print(Solution().hIndex(citations))
