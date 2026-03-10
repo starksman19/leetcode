@@ -14,13 +14,13 @@ def bfs_warmup(start, graph: dict):
     Oczekiwanie:
         - przechodzimy graf poziomami
     """
-    que = deque([start])
     ret = []
+    que = deque([start])
     while que:
-        curr = que.popleft()
-        ret.append(curr)
-        for val in graph[curr]:
-            que.append(val)
+        node = que.popleft()
+        for neigh in graph[node]:
+            que.append(neigh)
+        ret.append(node)
     return ret
 
 
@@ -43,12 +43,12 @@ def dfs_warmup(start, graph: dict):
     ret = []
     visited = set()
 
-    def dfs(next_val: int):
-        if next_val not in visited:
-            visited.add(next_val)
-            ret.append(next_val)
-            for val in graph[next_val]:
-                dfs(val)
+    def dfs(node: int):
+        if node and node not in visited:
+            visited.add(node)
+            ret.append(node)
+            for item in graph[node]:
+                dfs(item)
 
     dfs(start)
     return ret
@@ -98,9 +98,9 @@ def sliding_window_warmup(arr: List[int], k: int):
     Oczekiwanie:
         - przesuwamy okno po tablicy
     """
+    ret = float("-inf")
     left, right = 0, k
-    ret = 0
-    while right < len(arr):
+    while right <= len(arr):
         ret = max(ret, sum(arr[left:right]))
         left += 1
         right += 1
@@ -152,18 +152,14 @@ def stack_warmup(s: str):
         - stos do śledzenia otwarć nawiasów
     """
     map_p = {"}": "{", "]": "[", ")": "("}
-    ret = []
-    for parant in s:
-        if parant in map_p.values():
-            ret.append(parant)
+    l = []
+    for item in s:
+        if item in map_p.values():
+            l.append(item)
         else:
-            if len(ret) == 0:
+            if map_p[item] != l.pop():
                 return False
-            else:
-                val = ret.pop()
-                if map_p[parant] != val:
-                    return False
-    if ret:
+    if l:
         return False
     return True
 
@@ -193,17 +189,6 @@ def inorder_traversal_warmup(root: Optional[TreeNode]):
     Oczekiwanie:
         - przechodzimy całe drzewo rekurencyjnie
     """
-    ret = []
-
-    def dfs(node: TreeNode):
-        if not node:
-            return
-        dfs(node.left)
-        ret.append(node.val)
-        dfs(node.right)
-
-    dfs(root)
-    return ret
 
 
 root = TreeNode(
