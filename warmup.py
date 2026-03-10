@@ -228,7 +228,7 @@ def quickselect_warmup(arr: List[int], k: int):
         pointer, pivot = left, arr[right]
         for i in range(left, right):
             if arr[i] < pivot:
-                arr[i], arr[pointer] = arr[pointer], arr[i]
+                arr[pointer], arr[i] = arr[i], arr[pointer]
                 pointer += 1
         arr[pointer], arr[right] = arr[right], arr[pointer]
         if pointer == k:
