@@ -189,6 +189,17 @@ def inorder_traversal_warmup(root: Optional[TreeNode]):
     Oczekiwanie:
         - przechodzimy całe drzewo rekurencyjnie
     """
+    ret = []
+
+    def dfs(node: TreeNode):
+        if not node:
+            return
+        dfs(node.left)
+        ret.append(node.val)
+        dfs(node.right)
+
+    dfs(root)
+    return ret
 
 
 root = TreeNode(
