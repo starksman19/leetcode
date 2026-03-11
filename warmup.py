@@ -259,17 +259,16 @@ def divide_and_conquer_sum(arr: List[int], l: int, r: int):
         - dzielimy problem na pół i sumujemy wyniki
     """
 
-    def div(array, left, right):
+    def divcon(left, right):
         if left == right:
-            return array[right]
+            return arr[left]
         mid = (left + right) // 2
-        left = div(array, left, mid)
-        right = div(array, mid + 1, right)
-        return left + right
+        return divcon(left, mid) + divcon(mid + 1, right)
 
-    return div(arr, l, r)
+    return divcon(l, r)
 
 
+print(divide_and_conquer_sum([1, 2, 3, 4], 0, 3))
 assert divide_and_conquer_sum([1, 2, 3, 4], 0, 3) == 10
 
 
@@ -284,8 +283,8 @@ def lis_warmup(nums: List[int]):
 
         - używamy DP, O(n^2) lub O(n log n)
     """
-    dp = [1 for _ in range(len(nums))]
-    for i in range(len(dp)):
+    dp = [1] * (len(nums))
+    for i in range(len(nums)):
         for j in range(i):
             if nums[i] > nums[j]:
                 dp[i] = max(dp[i], dp[j] + 1)
