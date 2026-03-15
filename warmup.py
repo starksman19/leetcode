@@ -1,5 +1,6 @@
 from collections import deque
 from typing import List, Optional
+import heapq
 
 
 # ---------------------------
@@ -334,11 +335,11 @@ def coin_change_warmup(coins: List[int], amount: int):
     Oczekiwanie:
         - klasyczny DP minimalizacji liczby monet
     """
-    dp = [float("inf") for _ in range(amount + 1)]
+    dp = [float("inf")] * (amount + 1)
     dp[0] = 0
-    for coin in coins:
-        for i in range(coin, len(dp)):
-            dp[i] = min(dp[i], dp[i - coin] + 1)
+    for i in range(len(coins)):
+        for j in range(coins[i], len(dp)):
+            dp[j] = min(dp[j], dp[j - coins[i]] + 1)
     return dp[-1] if dp[-1] != float("inf") else -1
 
 
@@ -361,19 +362,18 @@ def combination_sum(candidates: List[int], target: int) -> List[List[int]]:
     """
     ret = []
 
-    def backtrack(curr_arr: List[int], curr_sum: int, start: int):
-        if curr_sum == target:
-            ret.append(curr_arr[:])
+    def backtrack(curr_array: List[int], curr_val: int, start_index: int):
+        if curr_val == target:
+            ret.append(curr_array[:])
             return
-        elif curr_sum > target:
+        elif curr_val > target:
             return
-        else:
-            for i in range(start, len(candidates)):
-                curr_arr.append(candidates[i])
-                curr_sum += candidates[i]
-                backtrack(curr_arr, curr_sum, i)
-                curr_arr.pop()
-                curr_sum = curr_sum - candidates[i]
+        for i in range(start_index, len(candidates)):
+            curr_array.append(candidates[i])
+            curr_val += candidates[i]
+            backtrack(curr_array, curr_val, i)
+            curr_array.pop()
+            curr_val -= candidates[i]
 
     backtrack([], 0, 0)
     return ret
@@ -389,3 +389,78 @@ assert combination_sum(candidates1, target1) == [
     [3, 5],
 ]
 assert combination_sum(candidates2, target2) == []
+
+
+class RaceResults:
+    def __init__(self):
+        # szybki dostęp po imieniu
+        self.name_to_score = {}
+
+        # szybki dostęp po wyniku
+        self.score_to_name = {}
+
+        # max-heap (używamy ujemnych wartości)
+        self.max_heap = []
+
+        # aktualne top3 (cache)
+        self._top3_cache = []
+
+    def insert(self, name: str, score: float):
+        """
+        Wstawia lub aktualizuje wynik zawodnika.
+        """
+
+        # Jeśli istnieje — usuń stary wynik
+        if name in self.name_to_score:
+            old_score = self.name_to_score[name]
+            del self.score_to_name[old_score]
+
+        self.name_to_score[name] = score
+        self.score_to_name[score] = name
+
+        # heap jako max-heap przez ujemne wartości
+        heapq.heappush(self.max_heap, (-score, name))
+
+        self._update_top3()
+
+    def _update_top3(self):
+        """
+        Aktualizuje cache top3.
+        """
+        temp = []
+        used = []
+
+        while self.max_heap and len(temp) < 3:
+            score_neg, name = heapq.heappop(self.max_heap)
+            score = -score_neg
+
+            # sprawdzamy czy to aktualny wynik (bo mogą być stare wpisy)
+            if self.name_to_score.get(name) == score:
+                temp.append((name, score))
+                used.append((score_neg, name))
+
+        # przywróć do heap
+        for item in used:
+            heapq.heappush(self.max_heap, item)
+
+        self._top3_cache = temp
+
+    def get_top3(self):
+        """
+        Zwraca top3 jako listę (name, score).
+        """
+        return self._top3_cache
+
+    def get_score_by_name(self, name: str):
+        """
+        Zwraca wynik na podstawie imienia.
+        O(1)
+        """
+        return self.name_to_score.get(name)
+
+    def get_name_by_score(self, score: float):
+        """
+        Zwraca imię na podstawie wyniku.
+        O(1)
+        """
+        return self.score_to_name.get(score)
