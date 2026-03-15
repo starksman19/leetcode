@@ -308,12 +308,11 @@ def knapsack_warmup(weights: List[int], values: List[int], W: int):
     Oczekiwanie:
         - klasyczny plecak 0/1 z DP
     """
-    # ile wejdzie przy założeniu takiej wagi -> 0,1,2,3,4,5.. W w
+    # ile wejdzie przy założeniu takiej wagi -> 0,1,2,3,4,5.. W
     assert len(weights) == len(values)
 
-    dp = [0 for i in range(W + 1)]
-    dp[0] = 0
-    for i in range(0, len(weights)):
+    dp = [0] * (W + 1)
+    for i in range(len(weights)):
         for w in range(W, weights[i] - 1, -1):
             dp[w] = max(dp[w], values[i] + dp[w - weights[i]])
     return dp[-1]
