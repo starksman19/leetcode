@@ -3,38 +3,19 @@
 # Return true if you can reach the last index, or false otherwise.
 # 1 <= nums.length <= 104
 # 0 <= nums[i] <= 105
-from functools import lru_cache
 from typing import List
 
 
 class Solution:
-    def canJump_bad(self, nums: List[int]) -> bool:
-        @lru_cache
-        def dfs(index: int) -> bool:
-            if index >= len(nums) - 1:
-                return True
-            elif nums[index] == 0:
-                return False
-            n = nums[index]
-            ret = []
-            for i in range(1, n + 1):
-                ret.append(dfs(index + i))
-            return any(ret)
-
-        if 0 in nums:
-            return dfs(0)
-        else:
-            return True
-
     def canJump(self, nums: List[int]) -> bool:
         max_reach = 0
-        for i, jump in enumerate(nums):
-            if i > max_reach:
+        for index, value in enumerate(nums):
+            if index > max_reach:
                 return False
-            max_reach = max(max_reach, i + jump)
-            if max_reach >= len(nums) - 1:
-                return True
-        return True
+            max_reach = max(max_reach, index + value)
+        if max_reach >= len(nums) - 1:
+            return True
+        return False
 
 
 nums1 = [2, 3, 1, 1, 4]
