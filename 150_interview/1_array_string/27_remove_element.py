@@ -15,14 +15,15 @@ from typing import List
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         k = len(nums)
-        avaliable_slots = deque()
-        for i in range(len(nums)):
+        que = deque()
+        for i in range(k):
             if nums[i] == val:
                 k -= 1
-                avaliable_slots.append(i)
-            elif avaliable_slots:
-                nums[avaliable_slots.popleft()] = nums[i]
-                avaliable_slots.append(i)
+                que.append(i)
+            else:
+                if que:
+                    nums[que.popleft()] = nums[i]
+                    que.append(i)
         return k
 
 
@@ -31,8 +32,6 @@ val1 = 3
 nums2 = [0, 1, 2, 2, 3, 0, 4, 2]
 val2 = 2
 
-print(Solution().removeElement(nums1, val1))
 assert Solution().removeElement(nums1, val1) == 2
 
-print(Solution().removeElement(nums2, val2))
 assert Solution().removeElement(nums2, val2) == 5
