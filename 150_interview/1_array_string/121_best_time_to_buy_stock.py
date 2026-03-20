@@ -24,16 +24,13 @@ class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         if not prices:
             return 0
-
-        biggest_diff_this_far = 0
         min_price = float("inf")
-
-        for price in prices:
-            if price < min_price:
-                min_price = price
-            else:
-                biggest_diff_this_far = max(biggest_diff_this_far, price - min_price)
-        return biggest_diff_this_far
+        ret = 0
+        for i in range(len(prices)):
+            if prices[i] < min_price:
+                min_price = prices[i]
+            ret = max(ret, prices[i] - min_price)
+        return ret
 
 
 prices = [7, 1, 5, 3, 6, 4]
