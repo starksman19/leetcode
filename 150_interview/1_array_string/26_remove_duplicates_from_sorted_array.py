@@ -11,15 +11,23 @@ from typing import List
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        pass
+        k = 0
+        if not nums:
+            return 0
+
+        for i in range(1, len(nums)):
+            if nums[i - 1] != nums[i]:
+                k += 1
+                nums[k] = nums[i]
+
+        return k + 1
 
 
 nums1 = [1, 1, 2]
-nums2 = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4, 0, 1, 1]
+nums2 = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
 
 
-# print(Solution().removeDuplicates(nums1))
-# assert Solution().removeDuplicates(nums1) == 2
+assert Solution().removeDuplicates(nums1) == 2
 
-print(Solution().removeDuplicates(nums2))
+
 assert Solution().removeDuplicates(nums2) == 5
