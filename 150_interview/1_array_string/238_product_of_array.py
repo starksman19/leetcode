@@ -7,7 +7,7 @@ from typing import List
 
 
 class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
+    def productExceptSelf2(self, nums: List[int]) -> List[int]:
         n = len(nums)
         left = [1] * n
         right = [1] * n
@@ -20,6 +20,18 @@ class Solution:
 
         for i in range(n):
             ret.append(left[i] * right[i])
+        return ret
+
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        ret = [1] * n
+
+        for i in range(1, n):
+            ret[i] = ret[i - 1] * nums[i - 1]
+        right = nums[-1]
+        for i in range(n - 2, -1, -1):
+            ret[i] = ret[i] * right
+            right = right * nums[i]
         return ret
 
 
