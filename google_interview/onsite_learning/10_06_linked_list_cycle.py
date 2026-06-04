@@ -1,3 +1,4 @@
+# LeetCode: https://leetcode.com/problems/linked-list-cycle/
 # Given the head of a linked list, return true if the list contains a cycle.
 
 from typing import List, Optional

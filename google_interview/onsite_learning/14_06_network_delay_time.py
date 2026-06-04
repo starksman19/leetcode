@@ -1,3 +1,4 @@
+# LeetCode: https://leetcode.com/problems/network-delay-time/
 # Given directed travel times between nodes, return how long it takes for all nodes to receive a signal from k.
 # Return -1 if some node cannot be reached.
 

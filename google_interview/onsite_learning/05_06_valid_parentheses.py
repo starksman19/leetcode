@@ -1,3 +1,4 @@
+# LeetCode: https://leetcode.com/problems/valid-parentheses/
 # Given a string containing only parentheses characters '(', ')', '{', '}', '[' and ']',
 # return true when every opening bracket is closed by the same type of bracket in the correct order.
 

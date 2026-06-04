@@ -1,3 +1,4 @@
+# LeetCode: https://leetcode.com/problems/largest-rectangle-in-histogram/
 # Given bar heights in a histogram, return the area of the largest rectangle that can be formed.
 
 from typing import List

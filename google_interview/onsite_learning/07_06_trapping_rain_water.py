@@ -1,3 +1,4 @@
+# LeetCode: https://leetcode.com/problems/trapping-rain-water/
 # Given an array of non-negative bar heights, return how much rain water can be trapped after raining.
 
 from typing import List

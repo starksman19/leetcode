@@ -1,3 +1,4 @@
+# LeetCode: https://leetcode.com/problems/design-add-and-search-words-data-structure/
 # Design a word dictionary that supports adding words and searching words.
 # The search pattern may contain '.', which matches any single letter.
 

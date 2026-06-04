@@ -1,3 +1,4 @@
+# LeetCode: https://leetcode.com/problems/merge-intervals/
 # Given an array of intervals, merge all overlapping intervals and return the non-overlapping result.
 
 from typing import List

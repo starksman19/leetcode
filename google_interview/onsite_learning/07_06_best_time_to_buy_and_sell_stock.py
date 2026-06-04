@@ -1,3 +1,4 @@
+# LeetCode: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 # Given daily stock prices, choose one day to buy and a later day to sell.
 # Return the maximum possible profit, or 0 if no profitable transaction exists.
 
