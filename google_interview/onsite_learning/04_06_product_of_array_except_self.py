@@ -6,12 +6,39 @@
 #
 # You must write an algorithm that runs in O(n) time and without using the division operation.
 
+
 from typing import List
 
 
 class Solution:
+    def productExceptSelf2(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        sum_from_left = [1] * len(nums)
+        sum_from_right = [1] * len(nums)
+        ret = []
+        for i in range(1, n):
+            sum_from_left[i] = nums[i - 1] * sum_from_left[i - 1]
+        for i in range(n - 2, -1, -1):
+            sum_from_right[i] = nums[i + 1] * sum_from_right[i + 1]
+
+        for i in range(n):
+            ret.append(sum_from_left[i] * sum_from_right[i])
+
+        return ret
+
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        pass
+        n = len(nums)
+        sum_from_left = [1] * len(nums)
+        ret = []
+        for i in range(1, n):
+            sum_from_left[i] = nums[i - 1] * sum_from_left[i - 1]
+
+        right = 1
+        for i in range(n - 1, -1, -1):
+            ret.append(sum_from_left[i] * right)
+            right *= nums[i]
+        ret = ret[::-1]
+        return ret
 
 
 nums = [1, 2, 3, 4]
