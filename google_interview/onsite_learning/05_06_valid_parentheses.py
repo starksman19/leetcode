@@ -5,7 +5,16 @@
 
 class Solution:
     def isValid(self, s: str) -> bool:
-        pass
+        if not s:
+            return True
+        para_map = {"{": "}", "(": ")", "[": "]"}
+        stack = []
+        for item in s:
+            if item in para_map:
+                stack.append(item)
+            elif not stack or item != para_map[stack.pop()]:
+                return False
+        return True if not stack else False
 
 
 s = "()"
