@@ -14,7 +14,21 @@ class Solution:
     def mergeTwoLists(
         self, list1: Optional[ListNode], list2: Optional[ListNode]
     ) -> Optional[ListNode]:
-        pass
+        ret_list = ListNode()
+        new_list_pointer = ret_list
+        pointer1 = list1
+        pointer2 = list2
+
+        while pointer1 and pointer2:
+            if pointer1.val < pointer2.val:
+                new_list_pointer.next = pointer1
+                pointer1 = pointer1.next
+            else:
+                new_list_pointer.next = pointer2
+                pointer2 = pointer2.next
+            new_list_pointer = new_list_pointer.next
+        new_list_pointer.next = pointer1 or pointer2
+        return ret_list.next
 
 
 def build_linked_list(values: List[int]) -> Optional[ListNode]:

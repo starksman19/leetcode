@@ -11,8 +11,31 @@ class ListNode:
 
 
 class Solution:
+    def reverseList_worse(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        reverse = ListNode()
+        temp_node = reverse
+        node_log = []
+        while head:
+            node_log.append(head)
+            head = head.next
+        while node_log:
+            node = node_log.pop()
+            node.next = None
+            temp_node.next = node
+            temp_node = temp_node.next
+
+        return reverse.next
+
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        pass
+        previous = None
+        current = head
+
+        while current:
+            next_ = current.next
+            current.next = previous
+            previous = current
+            current = next_
+        return previous
 
 
 def build_linked_list(values: List[int]) -> Optional[ListNode]:
