@@ -16,7 +16,18 @@ class TreeNode:
 
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        pass
+        if not root:
+            return
+
+        def dfs_invert(node: TreeNode):
+            if not node:
+                return
+            dfs_invert(node.left)
+            dfs_invert(node.right)
+            node.left, node.right = node.right, node.left
+
+        dfs_invert(root)
+        return root
 
 
 def build_tree(values: List[Optional[int]]) -> Optional[TreeNode]:
