@@ -11,8 +11,34 @@ from typing import List
 
 
 class Solution:
+    def maxProfit_bad(self, prices: List[int], fee: int) -> int:
+        if len(prices) < 2:
+            return 0
+        dp = [0] * (len(prices))
+        for i in range(1, len(prices)):
+            dp[i] = dp[i - 1]
+
+            for j in range(i):
+                prev_profit = dp[j - 1] if j > 0 else 0
+                dp[i] = max(dp[i], prev_profit + prices[i] - prices[j] - fee)
+        return dp[-1]
+
     def maxProfit(self, prices: List[int], fee: int) -> int:
-        pass
+        cash = 0
+        hold = -prices[0]
+
+        for i in range(1, len(prices)):
+            cash = max(cash, hold - fee + prices[i])
+            hold = max(hold, cash - prices[i])
+
+        return cash
+
+
+prices = [1, 7, 2, 8, 4, 9]
+fee = 2
+
+print(Solution().maxProfit(prices, fee))
+assert Solution().maxProfit(prices, fee) == 11
 
 
 prices = [1, 3, 2, 8, 4, 9]
