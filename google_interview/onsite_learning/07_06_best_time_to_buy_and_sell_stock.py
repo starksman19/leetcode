@@ -7,7 +7,15 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        pass
+        if len(prices) < 2:
+            return 0
+        ret = float("-inf")
+        min_from_now = prices[0]
+        for i in range(1, len(prices)):
+            min_from_now = min(min_from_now, prices[i])
+            ret = max(ret, prices[i] - min_from_now)
+
+        return ret
 
 
 prices = [7, 1, 5, 3, 6, 4]
