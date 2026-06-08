@@ -7,7 +7,24 @@ from typing import List
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        pass
+        freq = {}
+        buckets = [[] for i in range(len(nums))]
+
+        for val in nums:
+            if val in freq:
+                freq[val] += 1
+            else:
+                freq[val] = 1
+
+        for item, value in freq.items():
+            buckets[value - 1].append(item)
+
+        ret = []
+        for i in range(len(buckets) - 1, -1, -1):
+            if len(ret) < k:
+                while len(ret) < k and buckets[i]:
+                    ret.append(buckets[i].pop())
+        return ret
 
 
 nums = [1, 1, 1, 2, 2, 3]
