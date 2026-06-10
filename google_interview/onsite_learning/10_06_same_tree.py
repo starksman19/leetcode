@@ -16,7 +16,30 @@ class TreeNode:
 
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        pass
+        p_que = deque([p])
+        q_que = deque([q])
+
+        while p_que and q_que:
+            p_node = p_que.popleft()
+            q_node = q_que.popleft()
+
+            if (q_node is None and p_node is not None) or (p_node is None and q_node is not None):
+                return False
+            if p_node is None and q_node is None:
+                continue
+
+            if p_node.val != q_node.val:
+                return False
+
+            p_que.append(p_node.left)
+
+            p_que.append(p_node.right)
+
+            q_que.append(q_node.left)
+
+            q_que.append(q_node.right)
+
+        return True if not p_que and not q_que else False
 
 
 def build_tree(values: List[Optional[int]]) -> Optional[TreeNode]:

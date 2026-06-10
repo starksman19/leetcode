@@ -16,7 +16,17 @@ class TreeNode:
 
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        pass
+        ret = []
+
+        def dfs(node: Optional[TreeNode]):
+            if not node:
+                return
+            dfs(node.left)
+            ret.append(node.val)
+            dfs(node.right)
+
+        dfs(root)
+        return ret[k - 1]
 
 
 def build_tree(values: List[Optional[int]]) -> Optional[TreeNode]:

@@ -12,7 +12,25 @@ class ListNode:
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        pass
+        visited = set()
+        while head:
+            if head in visited:
+                return True
+            visited.add(head)
+            head = head.next
+        return False
+
+    def hasCycle_worse(self, head: Optional[ListNode]) -> bool:
+        slow = fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow == fast:
+                return True
+
+        return False
 
 
 def build_cycle_list(values: List[int], pos: int) -> Optional[ListNode]:
