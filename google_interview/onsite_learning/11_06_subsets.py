@@ -1,13 +1,25 @@
 # LeetCode: https://leetcode.com/problems/subsets/
-# Given an integer array nums with unique values, return all possible subsets.
-# The answer may be returned in any order.
+# Given an integer array nums of unique elements, return all possible subsets (the power set).
+#
+# The solution set must not contain duplicate subsets. Return the solution in any order.
 
 from typing import List
 
 
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        pass
+        ret = []
+
+        def backtrack(curr_set: List, cur_index: int):
+            ret.append(curr_set[:])
+
+            for i in range(cur_index, len(nums)):
+                curr_set.append(nums[i])
+                backtrack(curr_set, i + 1)
+                curr_set.pop()
+
+        backtrack([], 0)
+        return ret
 
 
 def normalize(subsets: List[List[int]]) -> List[List[int]]:
