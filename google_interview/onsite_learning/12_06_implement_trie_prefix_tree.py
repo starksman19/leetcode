@@ -1,19 +1,51 @@
 # LeetCode: https://leetcode.com/problems/implement-trie-prefix-tree/
-# Implement a trie with insert, search and startsWith operations for lowercase English words.
+# Implement the Trie class:
+#
+# Trie() Initializes the trie object.
+# void insert(String word) Inserts the string word into the trie.
+# boolean search(String word) Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
+# boolean startsWith(String prefix) Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.end_of_word = False
 
 
 class Trie:
     def __init__(self):
-        pass
+        self.root = TrieNode()
 
     def insert(self, word: str) -> None:
-        pass
+        node = self.root
+        for ch in word:
+            if ch in node.children:
+                node = node.children[ch]
+            else:
+                new_node = TrieNode()
+                node.children[ch] = new_node
+                node = new_node
+        node.end_of_word = True
 
     def search(self, word: str) -> bool:
-        pass
+        node = self.root
+        for ch in word:
+            if ch in node.children:
+                node = node.children[ch]
+            else:
+                return False
+
+        return node.end_of_word
 
     def startsWith(self, prefix: str) -> bool:
-        pass
+        node = self.root
+        for ch in prefix:
+            if ch in node.children:
+                node = node.children[ch]
+            else:
+                return False
+        return True
 
 
 trie = Trie()

@@ -16,7 +16,12 @@ class TreeNode:
 
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        pass
+        def dfs(node: Optional[TreeNode], level: int):
+            if node is None:
+                return level
+            return max(dfs(node.right, level + 1), dfs(node.left, level + 1))
+
+        return dfs(root, 0)
 
 
 def build_tree(values: List[Optional[int]]) -> Optional[TreeNode]:
