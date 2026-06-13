@@ -20,42 +20,13 @@ class WordDictionary:
         self.root = TrieNode()
 
     def addWord(self, word: str) -> None:
-        node = self.root
-        for ch in word:
-            if ch in node.children:
-                node = node.children[ch]
-            else:
-                new_node = TrieNode()
-                node.children[ch] = new_node
-                node = new_node
-        node.end_of_word = True
+        pass
 
     def dfs(self, node: TrieNode, word: str) -> bool:
-        if not word:
-            return node.end_of_word
-
-        ch = word[0]
-
-        if ch == ".":
-            for child in node.children.values():
-                if self.dfs(child, word[1:]):
-                    return True
-            return False
-        elif ch not in node.children:
-            return False
-
-        return self.dfs(node.children[ch], word[1:])
+        pass
 
     def search(self, word: str) -> bool:
-        node = self.root
-        for i in range(len(word)):
-            if word[i] == ".":
-                return self.dfs(node, word[i:])
-            elif word[i] in node.children:
-                node = node.children[word[i]]
-            else:
-                return False
-        return node.end_of_word
+        pass
 
 
 word_dictionary = WordDictionary()
