@@ -6,7 +6,15 @@ from typing import List
 
 class Solution:
     def countBits(self, n: int) -> List[int]:
-        pass
+        ret = []
+        for i in range(n + 1):
+            val = i
+            step = 0
+            while val > 0:
+                step += val % 2
+                val = val // 2
+            ret.append(step)
+        return ret
 
 
 n = 2

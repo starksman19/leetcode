@@ -4,7 +4,11 @@
 
 class Solution:
     def hammingWeight(self, n: int) -> int:
-        pass
+        ret = 0
+        while n > 0:
+            ret += n % 2
+            n = n // 2
+        return ret
 
 
 n = 11
