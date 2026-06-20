@@ -53,10 +53,10 @@ class Solution:
                 next_node.word = None
 
             board[i][j] = "."
-            dfs(i + 1, j, trie_node.children[char])
-            dfs(i - 1, j, trie_node.children[char])
-            dfs(i, j + 1, trie_node.children[char])
-            dfs(i, j - 1, trie_node.children[char])
+            dfs(i + 1, j, next_node)
+            dfs(i - 1, j, next_node)
+            dfs(i, j + 1, next_node)
+            dfs(i, j - 1, next_node)
             board[i][j] = char
 
         for r in range(rows):
