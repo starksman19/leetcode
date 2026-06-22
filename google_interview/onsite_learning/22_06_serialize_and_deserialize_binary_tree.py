@@ -16,10 +16,44 @@ class TreeNode:
 
 class Codec:
     def serialize(self, root: Optional[TreeNode]) -> str:
-        pass
+        if not root:
+            return ""
+        ret = []
+        que = deque([root])
+        while que:
+            node = que.popleft()
+            if node:
+                que.append(node.left)
+                que.append(node.right)
+                ret.append(str(node.val))
+            else:
+                ret.append(str(None))
+        while ret and ret[-1] == "None":
+            ret.pop()
+        return ",".join(ret)
 
     def deserialize(self, data: str) -> Optional[TreeNode]:
-        pass
+        if data == "":
+            return None
+        vals = data.split(",")
+        que_rest = deque(vals[1:])
+        new_root = TreeNode(val=int(vals[0]))
+        que_to_visit = deque([new_root])
+        while que_rest:
+            node = que_to_visit.popleft()
+            left = que_rest.popleft()
+
+            if left != "None":
+                left_node = TreeNode(val=int(left))
+                node.left = left_node
+                que_to_visit.append(left_node)
+            if que_rest:
+                right = que_rest.popleft()
+                if right != "None":
+                    right_node = TreeNode(val=int(right))
+                    node.right = right_node
+                    que_to_visit.append(right_node)
+        return new_root
 
 
 def build_tree(values: List[Optional[int]]) -> Optional[TreeNode]:
