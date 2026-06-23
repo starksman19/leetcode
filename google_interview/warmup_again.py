@@ -372,7 +372,7 @@ def lis_warmup(nums: List[int]):
         for j in range(0, i):
             if nums[i] > nums[j]:
                 dp[i] = max(dp[i], dp[j] + 1)
-    return dp[-1]
+    return max(dp)
 
 
 assert lis_warmup([10, 9, 2, 5, 3, 7, 101, 18]) == 4
